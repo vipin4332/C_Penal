@@ -43,6 +43,10 @@
                     Login
                 </button>
             </form>
+            
+            <div class="signup-link">
+                <p>Don't have an account? <a href="signup.html">Request Access</a></p>
+            </div>
         </div>
     </div>
     
@@ -72,9 +76,10 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    // Store auth token (simple session storage)
+                    // Store auth token and user info (simple session storage)
                     sessionStorage.setItem('adminToken', data.token);
                     sessionStorage.setItem('adminEmail', email);
+                    sessionStorage.setItem('adminRole', data.role || 'admin');
                     
                     // Redirect to dashboard
                     window.location.href = 'dashboard.html';

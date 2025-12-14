@@ -28,6 +28,22 @@
       "dest": "/api/admin/states.js"
     },
     {
+      "src": "/api/admin/signup",
+      "dest": "/api/admin/signup.js"
+    },
+    {
+      "src": "/api/admin/pending-users",
+      "dest": "/api/admin/pending-users.js"
+    },
+    {
+      "src": "/api/admin/approve-user",
+      "dest": "/api/admin/approve-user.js"
+    },
+    {
+      "src": "/api/admin/reject-user",
+      "dest": "/api/admin/reject-user.js"
+    },
+    {
       "src": "/admin/(.*)",
       "dest": "/admin/$1"
     },
@@ -40,6 +56,7 @@
     "MONGODB_URI": "@mongodb_uri",
     "DB_NAME": "@db_name",
     "COLLECTION_NAME": "@collection_name",
+    "ADMIN_COLLECTION": "@admin_collection",
     "ADMIN_EMAIL": "@admin_email",
     "ADMIN_PASSWORD": "@admin_password"
   }

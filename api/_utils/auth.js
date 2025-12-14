@@ -29,22 +29,37 @@ function checkAuth(req) {
             return { authenticated: false };
         }
         
-        return { authenticated: true, email: tokenData.email };
+        return { 
+            authenticated: true, 
+            email: tokenData.email,
+            role: tokenData.role || 'admin'
+        };
     } catch (error) {
         return { authenticated: false };
     }
 }
 
 /**
+ * Check if user is super admin
+ * @param {Object} req - Request object
+ * @returns {boolean} - True if super admin
+ */
+function isSuperAdmin(req) {
+    const authResult = checkAuth(req);
+    return authResult.authenticated && authResult.role === 'super_admin';
+}
+
+/**
  * Generate simple token (replace with JWT in production)
  * @param {string} email - Admin email
+ * @param {string} role - User role (admin or super_admin)
  * @returns {string} - Base64 encoded token
  */
-function generateSimpleToken(email) {
+function generateSimpleToken(email, role = 'admin') {
     const tokenData = {
         email: email,
         timestamp: Date.now(),
-        role: 'admin'
+        role: role
     };
     
     return Buffer.from(JSON.stringify(tokenData)).toString('base64');
@@ -52,6 +67,7 @@ function generateSimpleToken(email) {
 
 module.exports = {
     checkAuth,
-    generateSimpleToken
+    generateSimpleToken,
+    isSuperAdmin
 };
 

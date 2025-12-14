@@ -34,12 +34,32 @@ function getAdminEmail() {
     return sessionStorage.getItem('adminEmail');
 }
 
+// Get admin role
+function getAdminRole() {
+    return sessionStorage.getItem('adminRole') || 'admin';
+}
+
+// Check if user is super admin
+function isSuperAdmin() {
+    return getAdminRole() === 'super_admin';
+}
+
 // Set admin email in navigation
 function setAdminEmailInNav() {
     const email = getAdminEmail();
     const emailElement = document.getElementById('adminEmail');
     if (emailElement && email) {
         emailElement.textContent = email;
+    }
+    
+    // Show/hide approvals link based on role
+    const approvalsLink = document.getElementById('approvalsLink') || document.querySelector('a[href="approvals.html"]');
+    if (approvalsLink) {
+        if (isSuperAdmin()) {
+            approvalsLink.style.display = 'inline-block';
+        } else {
+            approvalsLink.style.display = 'none';
+        }
     }
 }
 

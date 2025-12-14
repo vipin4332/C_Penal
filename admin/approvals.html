@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Requests - Control Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="nav-title">Admin Control Panel</h2>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="users.html" class="nav-link">All Users</a>
+                <a href="approvals.html" class="nav-link active">Admin Requests</a>
+                <span class="nav-user" id="adminEmail"></span>
+                <button class="btn btn-small" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>Admin Access Requests</h1>
+            <p>Review and approve or reject admin access requests</p>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading" style="display: none;">
+            Loading requests...
+        </div>
+        
+        <!-- Empty State -->
+        <div id="emptyState" class="info-box" style="display: none;">
+            <h3>No Pending Requests</h3>
+            <p>There are no admin access requests waiting for approval.</p>
+        </div>
+        
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+        
+        <!-- Success Message -->
+        <div id="successMessage" class="success-message" style="display: none;"></div>
+        
+        <!-- Pending Requests Table -->
+        <div class="table-container" id="requestsTable" style="display: none;">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Request Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="requestsTableBody">
+                    <!-- Requests will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/approvals.js"></script>
+</body>
+</html>
+
