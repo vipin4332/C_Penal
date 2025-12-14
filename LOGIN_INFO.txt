@@ -1,0 +1,76 @@
+===========================================
+ADMIN PANEL - LOGIN INFORMATION
+===========================================
+
+HOW TO LOGIN:
+-------------
+
+1. Go to your admin panel URL:
+   - GitHub Pages: https://vipin4332.github.io/C_Penal/
+   - Local: http://localhost:3000/admin/
+   - Vercel: https://your-project.vercel.app/admin/
+
+2. Enter your login credentials:
+
+   DEFAULT SUPER ADMIN (Legacy):
+   -----------------------------
+   Email: admin@example.com
+   Password: admin123
+
+   NOTE: These are the default credentials. 
+   Change them in your environment variables:
+   - ADMIN_EMAIL
+   - ADMIN_PASSWORD
+
+3. Click "Login" button
+
+4. You will be redirected to the Dashboard
+
+
+SIGNUP FOR NEW ADMINS:
+----------------------
+
+1. On the login page, click "Request Access" link
+
+2. Fill out the signup form:
+   - Full Name
+   - Email Address
+   - Password (minimum 6 characters)
+   - Confirm Password
+
+3. Click "Request Access"
+
+4. Wait for super admin approval
+
+5. Once approved, you can login with your credentials
+
+
+SUPER ADMIN FEATURES:
+---------------------
+
+- Can approve/reject admin signup requests
+- Access to "Admin Requests" page in navigation
+- Full access to all features
+
+
+IMPORTANT NOTES:
+----------------
+
+- Default admin (admin@example.com) has super_admin role
+- New signups must be approved before they can login
+- Passwords are securely hashed in the database
+- Change default credentials in production!
+
+
+ENVIRONMENT VARIABLES:
+----------------------
+
+Set these in Vercel or .env file:
+- ADMIN_EMAIL=your-email@example.com
+- ADMIN_PASSWORD=your-secure-password
+- MONGODB_URI=your_mongodb_connection
+- DB_NAME=your_database_name
+- ADMIN_COLLECTION=admins
+
+===========================================
+

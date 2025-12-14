@@ -1,0 +1,308 @@
+===========================================
+ENVIRONMENT VARIABLES - COMPLETE GUIDE
+===========================================
+
+WHAT ARE ENVIRONMENT VARIABLES?
+--------------------------------
+These are settings that tell your website where to find your database
+and how to connect to it. Think of them as "addresses" and "passwords"
+that your website needs to work.
+
+===========================================
+EACH VARIABLE EXPLAINED:
+===========================================
+
+1. MONGODB_URI
+---------------
+WHAT IT IS:
+Your database connection address (like a website URL for your database)
+
+WHAT IT DOES:
+Tells your website where to find your database on the internet
+
+HOW TO GET IT:
+You need a MongoDB account (free). See instructions below.
+
+EXAMPLE:
+mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/database?retryWrites=true&w=majority
+
+WHERE TO GET:
+- Sign up at: https://www.mongodb.com/cloud/atlas/register
+- Create a free cluster
+- Get connection string from Atlas dashboard
+
+
+2. DB_NAME
+----------
+WHAT IT IS:
+The name of your database (like a folder name)
+
+WHAT IT DOES:
+Tells your website which database to use
+
+HOW TO FILL:
+- If you already have a database, use its name
+- If creating new, use any name you like (e.g., "mydatabase", "cpenal_db")
+
+EXAMPLE:
+mydatabase
+or
+cpenal_db
+
+NOTE:
+You can choose any name you want. This is just a label.
+
+
+3. COLLECTION_NAME
+------------------
+WHAT IT IS:
+The name of the table where user registration data is stored
+
+WHAT IT DOES:
+Tells your website where to save/find user registration information
+
+HOW TO FILL:
+Use: users
+(This is the default name. If your data is in a different table, use that name)
+
+EXAMPLE:
+users
+
+NOTE:
+If you're not sure, use "users" - this is the standard name.
+
+
+4. ADMIN_COLLECTION
+-------------------
+WHAT IT IS:
+The name of the table where admin user accounts are stored
+
+WHAT IT DOES:
+Tells your website where to save/find admin login information
+
+HOW TO FILL:
+Use: admins
+(This is the default name)
+
+EXAMPLE:
+admins
+
+NOTE:
+This is where admin signup requests and approved admins are stored.
+
+
+5. ADMIN_EMAIL
+--------------
+WHAT IT IS:
+The email address for the main admin (super admin) account
+
+WHAT IT DOES:
+This is the email you'll use to login to the admin panel
+
+HOW TO FILL:
+- Use your own email address
+- Or use: admin@example.com (default)
+
+EXAMPLE:
+admin@example.com
+or
+yourname@gmail.com
+
+NOTE:
+This is the email you'll use to login. Make sure you remember it!
+
+
+6. ADMIN_PASSWORD
+-----------------
+WHAT IT IS:
+The password for the main admin account
+
+WHAT IT DOES:
+This is the password you'll use to login to the admin panel
+
+HOW TO FILL:
+- Choose a strong password (at least 8 characters)
+- Or use: admin123 (default - CHANGE THIS!)
+
+EXAMPLE:
+admin123
+or
+MySecurePass123!
+
+WARNING:
+Change the default password in production! Don't use "admin123" for real sites.
+
+===========================================
+STEP-BY-STEP: SETTING UP MONGODB
+===========================================
+
+IF YOU DON'T HAVE MONGODB YET:
+
+Step 1: Create MongoDB Account (FREE)
+--------------------------------------
+1. Go to: https://www.mongodb.com/cloud/atlas/register
+2. Click "Try Free"
+3. Fill in:
+   - Email address
+   - Password
+   - First name, Last name
+   - Company (optional)
+4. Click "Create your Atlas account"
+5. Verify your email
+
+Step 2: Create a Free Cluster
+------------------------------
+1. After login, you'll see "Create a Deployment"
+2. Select: FREE (M0) - Shared
+3. Cloud Provider: Choose AWS (or any)
+4. Region: Choose closest to you
+5. Cluster Name: Leave default or change to "Cluster0"
+6. Click "Create Deployment"
+7. Wait 3-5 minutes for cluster to be created
+
+Step 3: Create Database User
+-----------------------------
+1. You'll see "Create Database User"
+2. Authentication Method: Password
+3. Username: Enter a username (e.g., "admin" or "myuser")
+4. Password: Click "Autogenerate Secure Password" OR create your own
+5. IMPORTANT: SAVE THE PASSWORD! You'll need it.
+6. Click "Create Database User"
+
+Step 4: Set Network Access
+---------------------------
+1. Click "Network Access" in left menu
+2. Click "Add IP Address"
+3. Click "Allow Access from Anywhere" (for development)
+   OR add specific IPs
+4. Click "Confirm"
+
+Step 5: Get Connection String
+------------------------------
+1. Click "Database" in left menu
+2. Click "Connect" button on your cluster
+3. Choose "Connect your application"
+4. Driver: Node.js
+5. Version: 5.5 or later
+6. Copy the connection string
+   It looks like:
+   mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+
+Step 6: Update Connection String
+---------------------------------
+1. Replace <username> with your database username
+2. Replace <password> with your database password
+3. Add your database name at the end:
+   ...mongodb.net/?retryWrites=true&w=majority
+   Change to:
+   ...mongodb.net/your_database_name?retryWrites=true&w=majority
+
+EXAMPLE:
+Original:
+mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+
+Updated:
+mongodb+srv://admin:MyPassword123@cluster0.xxxxx.mongodb.net/mydatabase?retryWrites=true&w=majority
+
+===========================================
+QUICK SETUP EXAMPLE
+===========================================
+
+IF YOU'RE STARTING FRESH, USE THESE VALUES:
+
+MONGODB_URI:
+mongodb+srv://admin:YourPassword123@cluster0.xxxxx.mongodb.net/cpenal_db?retryWrites=true&w=majority
+(Replace "YourPassword123" and "xxxxx" with your actual values)
+
+DB_NAME:
+cpenal_db
+
+COLLECTION_NAME:
+users
+
+ADMIN_COLLECTION:
+admins
+
+ADMIN_EMAIL:
+admin@example.com
+(Or your email)
+
+ADMIN_PASSWORD:
+admin123
+(Change this to something secure!)
+
+===========================================
+HOW TO FILL IN VERCEL:
+===========================================
+
+When deploying on Vercel:
+
+1. Go to your project settings
+2. Click "Environment Variables"
+3. For each variable:
+   - Click "Add New"
+   - Enter Variable Name (exactly as shown)
+   - Enter Variable Value (your actual value)
+   - Select Environment: Production, Preview, Development (or all)
+   - Click "Save"
+
+IMPORTANT:
+- Variable names are CASE-SENSITIVE
+- Use exact names: MONGODB_URI (not mongodb_uri)
+- Don't add quotes around values
+- Make sure there are no extra spaces
+
+===========================================
+TESTING YOUR VALUES:
+===========================================
+
+After setting up:
+
+1. Deploy to Vercel
+2. Go to: https://your-site.vercel.app/admin/
+3. Try to login with ADMIN_EMAIL and ADMIN_PASSWORD
+4. If it works, your values are correct!
+5. If you get errors, check:
+   - MONGODB_URI is correct
+   - Password in URI matches your database password
+   - Database name matches DB_NAME
+   - Network access allows Vercel IPs
+
+===========================================
+NEED HELP?
+===========================================
+
+Common Issues:
+
+1. "Cannot connect to MongoDB"
+   → Check MONGODB_URI is correct
+   → Check password in URI matches database password
+   → Check network access allows all IPs
+
+2. "Database not found"
+   → MongoDB creates database automatically
+   → Just make sure DB_NAME matches what you put in URI
+
+3. "Collection not found"
+   → Collections are created automatically when you add data
+   → Just make sure COLLECTION_NAME is correct
+
+4. "Login not working"
+   → Check ADMIN_EMAIL and ADMIN_PASSWORD are correct
+   → Default is: admin@example.com / admin123
+
+===========================================
+SUMMARY:
+===========================================
+
+MONGODB_URI → Get from MongoDB Atlas (connection string)
+DB_NAME → Choose any name (e.g., "cpenal_db")
+COLLECTION_NAME → Use "users"
+ADMIN_COLLECTION → Use "admins"
+ADMIN_EMAIL → Your email or "admin@example.com"
+ADMIN_PASSWORD → Your password or "admin123"
+
+That's it! Once you fill these, your site will work!
+
+===========================================
+

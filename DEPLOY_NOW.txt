@@ -1,0 +1,31 @@
+===========================================
+QUICK DEPLOYMENT STEPS
+===========================================
+
+FASTEST WAY TO DEPLOY:
+
+1. Go to: https://vercel.com
+2. Sign up/Login with GitHub
+3. Click "Add New Project"
+4. Import: vipin4332/C_Penal
+5. Add Environment Variables (see below)
+6. Click "Deploy"
+
+ENVIRONMENT VARIABLES TO ADD:
+
+MONGODB_URI = mongodb+srv://username:password@cluster.mongodb.net/database
+DB_NAME = your_database_name
+COLLECTION_NAME = users
+ADMIN_COLLECTION = admins
+ADMIN_EMAIL = admin@example.com
+ADMIN_PASSWORD = admin123
+
+YOUR SITE WILL BE LIVE AT:
+https://c-penal.vercel.app/admin/
+
+LOGIN WITH:
+Email: admin@example.com
+Password: admin123
+
+===========================================
+

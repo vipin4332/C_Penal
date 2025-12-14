@@ -1,0 +1,149 @@
+===========================================
+YOUR VERCEL ENVIRONMENT VARIABLES - CHECK
+===========================================
+
+CURRENT VALUES:
+---------------
+
+✅ DB_NAME: Admin_Penal
+   Status: CORRECT ✓
+
+✅ COLLECTION_NAME: users
+   Status: CORRECT ✓
+
+✅ ADMIN_COLLECTION: admins
+   Status: CORRECT ✓
+
+✅ ADMIN_EMAIL: vs9953682@gmail.com
+   Status: CORRECT ✓
+
+✅ ADMIN_PASSWORD: Vipin@123
+   Status: CORRECT ✓
+
+❌ MONGODB_URI: mongodb.net/?retryWrites=true&w=majority
+   Status: INCOMPLETE! ✗
+
+===========================================
+PROBLEM FOUND:
+===========================================
+
+Your MONGODB_URI is INCOMPLETE!
+
+Current (WRONG):
+mongodb.net/?retryWrites=true&w=majority
+
+This is missing:
+- Protocol (mongodb+srv://)
+- Username
+- Password
+- Cluster address
+- Database name
+
+===========================================
+HOW TO FIX MONGODB_URI:
+===========================================
+
+CORRECT FORMAT:
+mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/database?retryWrites=true&w=majority
+
+STEP 1: Get Your Full Connection String
+----------------------------------------
+1. Go to MongoDB Atlas: https://cloud.mongodb.com
+2. Login to your account
+3. Click "Database" in left menu
+4. Click "Connect" button on your cluster
+5. Choose "Connect your application"
+6. Copy the FULL connection string
+
+It should look like:
+mongodb+srv://admin:YourPassword@cluster0.abc123.mongodb.net/?retryWrites=true&w=majority
+
+STEP 2: Update the Connection String
+-------------------------------------
+1. Replace <username> with your MongoDB username
+2. Replace <password> with your MongoDB password
+3. Add your database name before the "?":
+
+Change from:
+mongodb+srv://admin:password@cluster0.xxxxx.mongodb.net/?retryWrites=true&w=majority
+
+To:
+mongodb+srv://admin:password@cluster0.xxxxx.mongodb.net/Admin_Penal?retryWrites=true&w=majority
+
+NOTE: Use "Admin_Penal" as database name (same as your DB_NAME)
+
+STEP 3: Update in Vercel
+-------------------------
+1. Click the "-" button next to MONGODB_URI
+2. Click "+ Add More"
+3. Key: MONGODB_URI
+4. Value: (paste your complete connection string)
+5. Make sure it includes:
+   - mongodb+srv://
+   - username:password@
+   - cluster address
+   - /Admin_Penal (database name)
+   - ?retryWrites=true&w=majority
+
+===========================================
+EXAMPLE OF CORRECT MONGODB_URI:
+===========================================
+
+mongodb+srv://admin:Vipin@123@cluster0.abc123.mongodb.net/Admin_Penal?retryWrites=true&w=majority
+
+Breakdown:
+- mongodb+srv:// = Protocol
+- admin = Username (your MongoDB username)
+- Vipin@123 = Password (your MongoDB password)
+- cluster0.abc123.mongodb.net = Your cluster address
+- /Admin_Penal = Database name (same as DB_NAME)
+- ?retryWrites=true&w=majority = Connection options
+
+===========================================
+IMPORTANT NOTES:
+===========================================
+
+1. Make sure your MongoDB password doesn't have special characters
+   that need encoding (like @, #, etc.)
+   If it does, replace them:
+   @ → %40
+   # → %23
+   $ → %24
+
+2. The database name in MONGODB_URI should match DB_NAME
+   You have DB_NAME = Admin_Penal
+   So use: /Admin_Penal in the URI
+
+3. After fixing MONGODB_URI, redeploy your site:
+   - Go to Vercel dashboard
+   - Click "Redeploy" on your latest deployment
+
+===========================================
+QUICK CHECKLIST:
+===========================================
+
+Before deploying, verify:
+
+[ ] MONGODB_URI starts with "mongodb+srv://"
+[ ] MONGODB_URI includes username:password@
+[ ] MONGODB_URI includes cluster address
+[ ] MONGODB_URI includes /Admin_Penal (database name)
+[ ] DB_NAME = Admin_Penal
+[ ] COLLECTION_NAME = users
+[ ] ADMIN_COLLECTION = admins
+[ ] ADMIN_EMAIL = vs9953682@gmail.com
+[ ] ADMIN_PASSWORD = Vipin@123
+
+===========================================
+AFTER FIXING:
+===========================================
+
+1. Save the updated MONGODB_URI in Vercel
+2. Redeploy your site
+3. Test login at: https://your-site.vercel.app/admin/
+4. Login with:
+   Email: vs9953682@gmail.com
+   Password: Vipin@123
+
+===========================================
+
