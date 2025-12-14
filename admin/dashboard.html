@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Admin Control Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="nav-title">Admin Control Panel</h2>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link active">Dashboard</a>
+                <a href="users.html" class="nav-link">All Users</a>
+                <span class="nav-user" id="adminEmail"></span>
+                <button class="btn btn-small" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Data Flow Explanation Box -->
+        <div class="info-box">
+            <h3>📋 How the System Works</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <span class="flow-number">1</span>
+                    <span class="flow-text">User fills registration form</span>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <span class="flow-number">2</span>
+                    <span class="flow-text">Data saved to system</span>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <span class="flow-number">3</span>
+                    <span class="flow-text">Admit card generated</span>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <span class="flow-number">4</span>
+                    <span class="flow-text">Email sent to user</span>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <span class="flow-number">5</span>
+                    <span class="flow-text">Visible in this panel</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-content">
+                    <h3 id="totalRegistrations">-</h3>
+                    <p>Total Registrations</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-content">
+                    <h3 id="todayRegistrations">-</h3>
+                    <p>Registrations Today</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-content">
+                    <h3 id="emailsSent">-</h3>
+                    <p>Emails Sent</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-content">
+                    <h3 id="pendingEmails">-</h3>
+                    <p>Pending Emails</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="users.html" class="btn btn-primary">View All Users</a>
+                <button class="btn btn-secondary" onclick="refreshStats()">Refresh Statistics</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
+

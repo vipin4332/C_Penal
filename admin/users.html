@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users - Admin Control Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="nav-title">Admin Control Panel</h2>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="users.html" class="nav-link active">All Users</a>
+                <span class="nav-user" id="adminEmail"></span>
+                <button class="btn btn-small" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>All Registered Users</h1>
+            <p>View, search, and manage all user registrations</p>
+        </div>
+        
+        <!-- Search and Filter Section -->
+        <div class="search-filter-box">
+            <div class="search-row">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-input" 
+                    placeholder="Search by Email / Roll Number / Mobile / Name"
+                >
+                <button class="btn btn-primary" onclick="performSearch()">Search</button>
+                <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
+            </div>
+            
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="stateFilter">State:</label>
+                    <select id="stateFilter" class="filter-select">
+                        <option value="">All States</option>
+                        <!-- States will be populated dynamically -->
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="statusFilter">Email Status:</label>
+                    <select id="statusFilter" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="sent">Email Sent</option>
+                        <option value="pending">Pending</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="dateFrom">From Date:</label>
+                    <input type="date" id="dateFrom" class="filter-date">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="dateTo">To Date:</label>
+                    <input type="date" id="dateTo" class="filter-date">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading" style="display: none;">
+            Loading users...
+        </div>
+        
+        <!-- Users Table -->
+        <div class="table-container">
+            <table class="data-table" id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>State</th>
+                        <th>Submission Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr>
+                        <td colspan="8" class="text-center">Loading users...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be generated dynamically -->
+        </div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/users.js"></script>
+</body>
+</html>
+

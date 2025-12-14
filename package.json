@@ -1,0 +1,26 @@
+{
+  "name": "admin-control-panel",
+  "version": "1.0.0",
+  "description": "Simple Admin Control Panel for managing user registrations",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "vercel dev"
+  },
+  "keywords": [
+    "admin",
+    "control-panel",
+    "vercel",
+    "serverless"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
+

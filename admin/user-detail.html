@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details - Admin Control Panel</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h2 class="nav-title">Admin Control Panel</h2>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="users.html" class="nav-link">All Users</a>
+                <span class="nav-user" id="adminEmail"></span>
+                <button class="btn btn-small" onclick="logout()">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="page-header">
+            <a href="users.html" class="back-link">← Back to Users</a>
+            <h1>User Details</h1>
+        </div>
+        
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading" style="display: none;">
+            Loading user details...
+        </div>
+        
+        <!-- User Details Card -->
+        <div id="userDetailsCard" class="user-detail-card" style="display: none;">
+            <!-- Personal Details Section -->
+            <div class="detail-section">
+                <h2>Personal Details</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Full Name</label>
+                        <p id="userName">-</p>
+                    </div>
+                    <div class="detail-item highlight">
+                        <label>Roll Number</label>
+                        <p id="userRollNumber" class="highlight-text">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Date of Birth</label>
+                        <p id="userDOB">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Gender</label>
+                        <p id="userGender">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Details Section -->
+            <div class="detail-section">
+                <h2>Contact Details</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Email Address</label>
+                        <p id="userEmail">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Mobile Number</label>
+                        <p id="userMobile">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Address</label>
+                        <p id="userAddress">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>State</label>
+                        <p id="userState">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>City</label>
+                        <p id="userCity">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Pin Code</label>
+                        <p id="userPincode">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Education Details Section -->
+            <div class="detail-section">
+                <h2>Education Details</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Qualification</label>
+                        <p id="userQualification">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Institution</label>
+                        <p id="userInstitution">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Year of Passing</label>
+                        <p id="userYear">-</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Registration Information Section -->
+            <div class="detail-section">
+                <h2>Registration Information</h2>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Registration Date</label>
+                        <p id="userRegDate">-</p>
+                    </div>
+                    <div class="detail-item">
+                        <label>Email Status</label>
+                        <p id="userEmailStatus">
+                            <span class="status-badge" id="statusBadge">-</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Admit Card Section -->
+            <div class="detail-section">
+                <h2>Admit Card</h2>
+                <div class="admit-card-section">
+                    <div id="admitCardAvailable" style="display: none;">
+                        <p class="admit-card-info">Admit card is ready for download.</p>
+                        <button class="btn btn-primary btn-large" onclick="downloadAdmitCard()">
+                            📥 Download Admit Card
+                        </button>
+                    </div>
+                    <div id="admitCardNotAvailable" style="display: none;">
+                        <p class="admit-card-info warning">Admit card not available yet. It will be generated soon.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/user-detail.js"></script>
+</body>
+</html>
+
