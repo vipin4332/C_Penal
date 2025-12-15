@@ -1,12 +1,11 @@
 /**
  * API Configuration
- * Set your Vercel backend URL below
+ * Backend URL for API calls
  */
 
-// IMPORTANT: Replace with your actual Vercel backend URL
-// Find it in: Vercel Dashboard → Your Project → Overview (top of page)
-// Example: https://c-penal-backend.vercel.app
-const BACKEND_URL = 'https://c-penal-backend.vercel.app';
+// Vercel backend URL - Your project: c-penal
+// If this doesn't work, check your Vercel dashboard for the exact URL
+const BACKEND_URL = 'https://c-penal.vercel.app';
 
 // Get API URL - automatically handles backend URL
 function getApiUrl(endpoint) {
