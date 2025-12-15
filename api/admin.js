@@ -32,10 +32,11 @@ module.exports = async (req, res) => {
     
     let action = 'dashboard'; // default
     
-    if ((pathname.includes('/users') || url.includes('/users')) && !pathname.includes('/user/') && !url.includes('/user/')) {
-        action = 'users';
-    } else if (pathname.includes('/user/') || url.includes('/user/') || pathname.includes('/user?') || url.includes('/user?')) {
+    // Check for user detail first (more specific)
+    if (pathname.includes('/user/') || url.includes('/user/') || pathname.match(/\/user\/[^/]+/) || url.match(/\/user\/[^/]+/)) {
         action = 'user-detail';
+    } else if ((pathname.includes('/users') || url.includes('/users')) && !pathname.includes('/user/') && !url.includes('/user/')) {
+        action = 'users';
     } else if (pathname.includes('/states') || url.includes('/states')) {
         action = 'states';
     } else {
@@ -193,6 +194,16 @@ async function handleUserDetail(req, res) {
         const pathname = originalUrl.split('?')[0];
         const match = pathname.match(/\/user\/([^/?]+)/) || url.match(/\/user\/([^/?]+)/);
         if (match) userId = match[1];
+    }
+    
+    // Also check query parameters (from vercel.json route: ?id=$1)
+    if (!userId && req.query) {
+        userId = req.query.id || req.query.userId;
+        // If no id param, check if there's a single query param (might be the ID)
+        const queryKeys = Object.keys(req.query);
+        if (!userId && queryKeys.length === 1) {
+            userId = req.query[queryKeys[0]];
+        }
     }
     
     if (!userId) {

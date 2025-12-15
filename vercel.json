@@ -37,7 +37,7 @@
     },
     {
       "src": "/api/admin/user/(.*)",
-      "dest": "/api/admin.js?id=$1"
+      "dest": "/api/admin.js"
     },
     {
       "src": "/api/admin/states",
