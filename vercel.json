@@ -5,5 +5,47 @@
       "src": "api/**/*.js",
       "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/api/admin/login",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/admin/signup",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/admin/pending-users",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/admin/approve-user",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/admin/reject-user",
+      "dest": "/api/auth.js"
+    },
+    {
+      "src": "/api/admin/dashboard",
+      "dest": "/api/admin.js"
+    },
+    {
+      "src": "/api/admin/users",
+      "dest": "/api/admin.js"
+    },
+    {
+      "src": "/api/admin/user/(.*)",
+      "dest": "/api/admin.js?id=$1"
+    },
+    {
+      "src": "/api/admin/states",
+      "dest": "/api/admin.js"
+    },
+    {
+      "src": "/api/test",
+      "dest": "/api/test.js"
+    }
   ]
 }
