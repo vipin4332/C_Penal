@@ -55,14 +55,6 @@
       "src": "/(.*)",
       "dest": "/admin/$1"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "DB_NAME": "@db_name",
-    "COLLECTION_NAME": "@collection_name",
-    "ADMIN_COLLECTION": "@admin_collection",
-    "ADMIN_EMAIL": "@admin_email",
-    "ADMIN_PASSWORD": "@admin_password"
-  }
+  ]
 }
 
