@@ -1,43 +1,5 @@
 {
   "buildCommand": "echo 'No build required'",
-  "outputDirectory": ".",
-  "routes": [
-    {
-      "src": "/api/admin/login",
-      "dest": "/api/admin/login.js"
-    },
-    {
-      "src": "/api/admin/dashboard",
-      "dest": "/api/admin/dashboard.js"
-    },
-    {
-      "src": "/api/admin/users",
-      "dest": "/api/admin/users.js"
-    },
-    {
-      "src": "/api/admin/user/([^/]+)",
-      "dest": "/api/admin/user/[id].js?id=$1"
-    },
-    {
-      "src": "/api/admin/states",
-      "dest": "/api/admin/states.js"
-    },
-    {
-      "src": "/api/admin/signup",
-      "dest": "/api/admin/signup.js"
-    },
-    {
-      "src": "/api/admin/pending-users",
-      "dest": "/api/admin/pending-users.js"
-    },
-    {
-      "src": "/api/admin/approve-user",
-      "dest": "/api/admin/approve-user.js"
-    },
-    {
-      "src": "/api/admin/reject-user",
-      "dest": "/api/admin/reject-user.js"
-    }
-  ]
+  "outputDirectory": "."
 }
 
