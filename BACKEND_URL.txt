@@ -1,0 +1,36 @@
+===========================================
+HOW TO FIND YOUR VERCEL BACKEND URL
+===========================================
+
+STEP 1: Go to Vercel Dashboard
+-------------------------------
+1. Visit: https://vercel.com/dashboard
+2. Login to your account
+
+STEP 2: Find Your Project
+--------------------------
+1. Look for your project (C_Penal-Backend or similar name)
+2. Click on it
+
+STEP 3: Copy the URL
+--------------------
+1. At the top of the page, you'll see a URL
+2. It looks like: https://c-penal-backend.vercel.app
+   OR: https://c-penal-backend-xxxxx.vercel.app
+3. Copy this entire URL
+
+STEP 4: Share It With Me
+-------------------------
+Just paste the URL here in the chat, like:
+https://c-penal-backend.vercel.app
+
+OR
+
+You can update it yourself:
+1. Open: frontend/admin/js/config.js
+2. Find: const BACKEND_URL = 'https://c-penal-backend.vercel.app';
+3. Replace with your actual URL
+4. Save and push to GitHub
+
+===========================================
+
