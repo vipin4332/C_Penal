@@ -72,6 +72,9 @@ async function authenticatedFetch(url, options = {}) {
         throw new Error('Not authenticated');
     }
     
+    // Use full API URL if getApiUrl function exists (from config.js)
+    const apiUrl = typeof getApiUrl === 'function' ? getApiUrl(url) : url;
+    
     const defaultOptions = {
         headers: {
             'Content-Type': 'application/json',
@@ -88,7 +91,7 @@ async function authenticatedFetch(url, options = {}) {
         }
     };
     
-    const response = await fetch(url, mergedOptions);
+    const response = await fetch(apiUrl, mergedOptions);
     
     // If unauthorized, redirect to login
     if (response.status === 401) {

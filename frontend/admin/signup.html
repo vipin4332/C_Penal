@@ -110,7 +110,7 @@
             }
             
             try {
-                const response = await fetch('/api/admin/signup', {
+                const response = await fetch(getApiUrl('/api/admin/signup'), {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -1,19 +1,8 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
       "src": "/api/admin/login",
       "dest": "/api/admin/login.js"
-    },
-    {
-      "src": "/frontend/(.*)",
-      "dest": "/frontend/$1"
     },
     {
       "src": "/api/admin/dashboard",
@@ -46,14 +35,6 @@
     {
       "src": "/api/admin/reject-user",
       "dest": "/api/admin/reject-user.js"
-    },
-    {
-      "src": "/admin/(.*)",
-      "dest": "/admin/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/admin/$1"
     }
   ]
 }
