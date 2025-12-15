@@ -9,6 +9,7 @@
 const { MongoClient } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const { generateSimpleToken } = require('../_utils/auth');
+const { addCorsHeaders, handleOptions } = require('../_utils/cors');
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME || 'your_database_name';
@@ -22,6 +23,14 @@ const LEGACY_ADMIN = {
 };
 
 module.exports = async (req, res) => {
+    // Add CORS headers
+    addCorsHeaders(res);
+    
+    // Handle preflight OPTIONS requests
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
     // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({ message: 'Method not allowed' });

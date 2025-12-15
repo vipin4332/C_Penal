@@ -66,7 +66,10 @@
             errorDiv.textContent = '';
             
             try {
-                const response = await fetch(getApiUrl('/api/admin/login'), {
+                const apiUrl = getApiUrl('/api/admin/login');
+                console.log('Calling API:', apiUrl);
+                
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,7 +77,19 @@
                     body: JSON.stringify({ email, password })
                 });
                 
-                const data = await response.json();
+                console.log('Response status:', response.status);
+                
+                // Check if response is JSON
+                const contentType = response.headers.get('content-type');
+                let data;
+                
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    const text = await response.text();
+                    console.error('Non-JSON response:', text);
+                    throw new Error('Server returned invalid response');
+                }
                 
                 if (response.ok) {
                     // Store auth token and user info (simple session storage)
@@ -85,14 +100,24 @@
                     // Redirect to dashboard
                     window.location.href = 'dashboard.html';
                 } else {
-                    // Show error message
-                    errorDiv.textContent = data.message || 'Login failed. Please check your credentials.';
+                    // Show specific error messages
+                    if (data.error === 'Account pending approval') {
+                        errorDiv.textContent = 'Your account is pending approval. Please wait for administrator approval.';
+                    } else {
+                        errorDiv.textContent = data.message || 'Login failed. Please check your credentials.';
+                    }
                     errorDiv.style.display = 'block';
                 }
             } catch (error) {
-                errorDiv.textContent = 'Connection error. Please try again.';
-                errorDiv.style.display = 'block';
                 console.error('Login error:', error);
+                if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                    errorDiv.textContent = 'Cannot connect to server. Please check your internet connection and ensure the backend is running.';
+                } else if (error.message.includes('invalid response')) {
+                    errorDiv.textContent = 'Server error. Please try again later.';
+                } else {
+                    errorDiv.textContent = 'Connection error. Please try again.';
+                }
+                errorDiv.style.display = 'block';
             }
         });
         
