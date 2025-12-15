@@ -26,19 +26,22 @@ module.exports = async (req, res) => {
         return res.status(200).end();
     }
 
-    // Determine action from URL path
+    // Determine action from URL path - check multiple sources
     const url = req.url || '';
+    const originalUrl = req.headers['x-vercel-original-path'] || req.headers['x-invoke-path'] || url;
+    const pathname = originalUrl.split('?')[0]; // Remove query string
+    
     let action = 'login'; // default
     
-    if (url.includes('/signup')) {
+    if (pathname.includes('/signup') || url.includes('/signup')) {
         action = 'signup';
-    } else if (url.includes('/pending-users')) {
+    } else if (pathname.includes('/pending-users') || url.includes('/pending-users')) {
         action = 'pending-users';
-    } else if (url.includes('/approve-user')) {
+    } else if (pathname.includes('/approve-user') || url.includes('/approve-user')) {
         action = 'approve-user';
-    } else if (url.includes('/reject-user')) {
+    } else if (pathname.includes('/reject-user') || url.includes('/reject-user')) {
         action = 'reject-user';
-    } else if (url.includes('/login')) {
+    } else if (pathname.includes('/login') || url.includes('/login')) {
         action = 'login';
     }
 

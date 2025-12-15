@@ -25,15 +25,18 @@ module.exports = async (req, res) => {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
-    // Determine action from URL path
+    // Determine action from URL path - check multiple sources
     const url = req.url || '';
+    const originalUrl = req.headers['x-vercel-original-path'] || req.headers['x-invoke-path'] || url;
+    const pathname = originalUrl.split('?')[0]; // Remove query string
+    
     let action = 'dashboard'; // default
     
-    if (url.includes('/users') && !url.includes('/user/')) {
+    if ((pathname.includes('/users') || url.includes('/users')) && !pathname.includes('/user/') && !url.includes('/user/')) {
         action = 'users';
-    } else if (url.includes('/user/') || url.includes('/user?')) {
+    } else if (pathname.includes('/user/') || url.includes('/user/') || pathname.includes('/user?') || url.includes('/user?')) {
         action = 'user-detail';
-    } else if (url.includes('/states')) {
+    } else if (pathname.includes('/states') || url.includes('/states')) {
         action = 'states';
     } else {
         action = 'dashboard';
@@ -182,11 +185,13 @@ async function handleUserDetail(req, res) {
 
     // Extract user ID from URL or query
     const url = req.url || '';
+    const originalUrl = req.headers['x-vercel-original-path'] || req.headers['x-invoke-path'] || url;
     let userId = req.query.id || req.query.userId;
     
     // Try to extract from URL path like /user/123
-    if (!userId && url.includes('/user/')) {
-        const match = url.match(/\/user\/([^/?]+)/);
+    if (!userId) {
+        const pathname = originalUrl.split('?')[0];
+        const match = pathname.match(/\/user\/([^/?]+)/) || url.match(/\/user\/([^/?]+)/);
         if (match) userId = match[1];
     }
     
