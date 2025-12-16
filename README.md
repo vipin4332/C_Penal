@@ -82,13 +82,12 @@ C_Penal/
 │   │   │   ├── users.js        # User list logic
 │   │   │   ├── user-detail.js  # User detail logic
 │   │   │   └── approvals.js    # Admin approval logic
-│   │   ├── index.html          # Login page
+│   │   ├── index.html          # Login page (Frontend entry point)
 │   │   ├── signup.html         # Signup page
 │   │   ├── dashboard.html      # Dashboard page
 │   │   ├── users.html          # User list page
 │   │   ├── user-detail.html    # User detail page
 │   │   └── approvals.html      # Admin approvals page
-│   └── index.html              # Root redirect
 │
 ├── vercel.json                  # Vercel deployment configuration
 ├── package.json                 # Node.js dependencies
