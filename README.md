@@ -534,6 +534,8 @@ C_Penal/
 
 ### Frontend (GitHub Pages)
 
+**Frontend Entry Point**: `frontend/admin/index.html`
+
 1. **Prerequisites**:
    - GitHub repository
    - GitHub Pages enabled
@@ -548,7 +550,8 @@ C_Penal/
    - Update `BACKEND_URL` to your Vercel URL
 
 4. **Access**:
-   - `https://vipin4332.github.io/C_Penal/frontend/admin/`
+   - `https://vipin4332.github.io/C_Penal/frontend/admin/index.html`
+   - Or: `https://vipin4332.github.io/C_Penal/frontend/admin/` (GitHub Pages will serve index.html automatically)
 
 ---
 
