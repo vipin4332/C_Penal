@@ -22,6 +22,7 @@
 **Admin Control Panel** is a full-stack web application for managing user registrations. It consists of:
 
 - **Frontend**: Static HTML/CSS/JavaScript hosted on GitHub Pages
+  - Entry Point: `frontend/admin/index.html`
 - **Backend**: Node.js serverless functions hosted on Vercel
 - **Database**: MongoDB (Atlas)
 
