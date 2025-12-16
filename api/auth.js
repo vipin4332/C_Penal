@@ -4,14 +4,20 @@
  * Routes based on query parameter 'action' or path
  */
 
-const { MongoClient, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const bcrypt = require('bcryptjs');
 const { generateSimpleToken, checkAuth, isSuperAdmin } = require('./_utils/auth');
 const { addCorsHeaders } = require('./_utils/cors');
+const { getDatabase } = require('./_utils/db');
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME || 'your_database_name';
 const ADMIN_COLLECTION = process.env.ADMIN_COLLECTION || 'admins';
+
+// Environment validation
+if (!MONGODB_URI) {
+    console.error('MONGODB_URI environment variable is not set');
+}
 
 // Legacy admin credentials
 const LEGACY_ADMIN = {
@@ -68,7 +74,6 @@ async function handleLogin(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    let client;
     try {
         const { email, password } = req.body;
         if (!email || !password) {
@@ -86,9 +91,10 @@ async function handleLogin(req, res) {
             });
         }
 
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(ADMIN_COLLECTION);
 
         const user = await collection.findOne({ email: email.toLowerCase().trim() });
@@ -120,8 +126,6 @@ async function handleLogin(req, res) {
     } catch (error) {
         console.error('Login error:', error);
         return res.status(500).json({ message: 'Internal server error' });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -131,7 +135,6 @@ async function handleSignup(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    let client;
     try {
         const { name, email, password } = req.body;
         if (!name || !email || !password) {
@@ -147,9 +150,10 @@ async function handleSignup(req, res) {
             return res.status(400).json({ message: 'Password must be at least 6 characters long' });
         }
 
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(ADMIN_COLLECTION);
 
         const existingUser = await collection.findOne({ email: email.toLowerCase() });
@@ -183,8 +187,6 @@ async function handleSignup(req, res) {
     } catch (error) {
         console.error('Signup error:', error);
         return res.status(500).json({ message: 'Internal server error. Please try again later.' });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -203,11 +205,11 @@ async function handlePendingUsers(req, res) {
         return res.status(403).json({ message: 'Access denied. Super admin privileges required.' });
     }
 
-    let client;
     try {
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(ADMIN_COLLECTION);
 
         const pendingUsers = await collection
@@ -232,8 +234,6 @@ async function handlePendingUsers(req, res) {
     } catch (error) {
         console.error('Pending users API error:', error);
         return res.status(500).json({ message: 'Internal server error', error: error.message });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -252,16 +252,16 @@ async function handleApproveUser(req, res) {
         return res.status(403).json({ message: 'Access denied. Super admin privileges required.' });
     }
 
-    let client;
     try {
         const { userId } = req.body;
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
         }
 
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(ADMIN_COLLECTION);
 
         const superAdminEmail = authResult.email;
@@ -305,8 +305,6 @@ async function handleApproveUser(req, res) {
     } catch (error) {
         console.error('Approve user API error:', error);
         return res.status(500).json({ message: 'Internal server error', error: error.message });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -325,16 +323,16 @@ async function handleRejectUser(req, res) {
         return res.status(403).json({ message: 'Access denied. Super admin privileges required.' });
     }
 
-    let client;
     try {
         const { userId } = req.body;
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
         }
 
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(ADMIN_COLLECTION);
 
         let deleteResult;
@@ -355,8 +353,6 @@ async function handleRejectUser(req, res) {
     } catch (error) {
         console.error('Reject user API error:', error);
         return res.status(500).json({ message: 'Internal server error', error: error.message });
-    } finally {
-        if (client) await client.close();
     }
 }
 

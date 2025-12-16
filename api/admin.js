@@ -4,13 +4,19 @@
  * Routes based on URL path
  */
 
-const { MongoClient, ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const { checkAuth } = require('./_utils/auth');
 const { addCorsHeaders } = require('./_utils/cors');
+const { getDatabase } = require('./_utils/db');
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME || 'your_database_name';
 const COLLECTION_NAME = process.env.COLLECTION_NAME || 'users';
+
+// Environment validation
+if (!MONGODB_URI) {
+    console.error('MONGODB_URI environment variable is not set');
+}
 
 module.exports = async (req, res) => {
     addCorsHeaders(res);
@@ -64,11 +70,11 @@ async function handleDashboard(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    let client;
     try {
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(COLLECTION_NAME);
 
         const today = new Date();
@@ -110,8 +116,6 @@ async function handleDashboard(req, res) {
             message: 'Internal server error',
             error: error.message
         });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -121,17 +125,18 @@ async function handleUsers(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    let client;
     try {
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const skip = (page - 1) * limit;
 
         const filter = buildFilter(req.query);
 
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(COLLECTION_NAME);
 
         const [total, users] = await Promise.all([
@@ -173,8 +178,6 @@ async function handleUsers(req, res) {
             message: 'Internal server error',
             error: error.message
         });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -210,11 +213,11 @@ async function handleUserDetail(req, res) {
         return res.status(400).json({ message: 'User ID is required' });
     }
 
-    let client;
     try {
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(COLLECTION_NAME);
 
         let user;
@@ -264,8 +267,6 @@ async function handleUserDetail(req, res) {
             message: 'Internal server error',
             error: error.message
         });
-    } finally {
-        if (client) await client.close();
     }
 }
 
@@ -275,11 +276,11 @@ async function handleStates(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    let client;
     try {
-        client = new MongoClient(MONGODB_URI);
-        await client.connect();
-        const db = client.db(DB_NAME);
+        if (!MONGODB_URI) {
+            return res.status(500).json({ message: 'Database configuration error' });
+        }
+        const db = await getDatabase(DB_NAME);
         const collection = db.collection(COLLECTION_NAME);
 
         const states = await collection.distinct('state');
@@ -296,8 +297,6 @@ async function handleStates(req, res) {
             message: 'Internal server error',
             error: error.message
         });
-    } finally {
-        if (client) await client.close();
     }
 }
 

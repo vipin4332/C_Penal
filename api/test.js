@@ -14,15 +14,30 @@ module.exports = async (req, res) => {
         return res.status(200).end();
     }
     
+    // Environment variable checks
+    const envStatus = {
+        MONGODB_URI: !!process.env.MONGODB_URI,
+        DB_NAME: !!process.env.DB_NAME,
+        COLLECTION_NAME: !!process.env.COLLECTION_NAME,
+        ADMIN_COLLECTION: !!process.env.ADMIN_COLLECTION,
+        NODE_ENV: process.env.NODE_ENV || 'not set'
+    };
+    
+    // Node version info
+    const nodeVersion = process.version;
+    
     return res.status(200).json({
         success: true,
         message: 'Backend API is working!',
         timestamp: new Date().toISOString(),
         environment: {
-            hasMongoUri: !!process.env.MONGODB_URI,
+            nodeVersion: nodeVersion,
+            hasMongoUri: envStatus.MONGODB_URI,
             dbName: process.env.DB_NAME || 'not set',
-            nodeEnv: process.env.NODE_ENV || 'not set'
+            collectionName: process.env.COLLECTION_NAME || 'not set',
+            adminCollection: process.env.ADMIN_COLLECTION || 'not set',
+            nodeEnv: envStatus.NODE_ENV,
+            envStatus: envStatus
         }
     });
 };
-

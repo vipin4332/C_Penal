@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Simple Admin Control Panel for managing user registrations",
   "main": "index.js",
+  "engines": {
+    "node": ">=18 <=24"
+  },
   "scripts": {
     "dev": "vercel dev",
     "build": "echo 'No build step required' && exit 0",
@@ -17,11 +20,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^6.0.0",
+    "mongodb": "^6.10.0",
     "bcryptjs": "^2.4.3"
   },
   "devDependencies": {
     "vercel": "^32.0.0"
   }
 }
-

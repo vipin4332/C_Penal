@@ -49,8 +49,8 @@
 ### Technology Stack
 
 - **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES6+)
-- **Backend**: Node.js 18.x, Serverless Functions
-- **Database**: MongoDB 6.0+
+- **Backend**: Node.js 18.x – 24.x (Vercel default: 24.x), Serverless Functions
+- **Database**: MongoDB 8.0+ (Atlas)
 - **Authentication**: Custom token-based (Base64 encoded)
 - **Password Hashing**: bcryptjs
 - **Hosting**: 
@@ -495,7 +495,7 @@ C_Penal/
 ### File: `package.json`
 
 **Dependencies**:
-- `mongodb` (^6.0.0) - MongoDB driver
+- `mongodb` (^6.10.0) - MongoDB driver (compatible with MongoDB 8.0+)
 - `bcryptjs` (^2.4.3) - Password hashing
 
 **Dev Dependencies**:
